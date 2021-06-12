@@ -10,7 +10,25 @@ const fethHtml = async url => {
   }
 };
 
-const extractRatingNumber
+const extractRatingNumber = classNames=>{
+    const prefix = 'rating-';
+    let result = "";
+    for (let classname of classNames.split(' ')) {
+        if(classname.includes(prefix)){
+            result = classname;
+            break;
+        }
+    }
+    result=result.replace(prefix,"");
+    if(isNaN(result) || result.length===0)         // isNaN(result) returns true if the variable does NOT contain a valid number
+    {
+        return -1;
+    }
+    else{
+        return parseInt(result);
+    }
+    
+}
 
 const extractDeal = selector => {
   const username = selector
@@ -21,10 +39,9 @@ const extractDeal = selector => {
   const rating = selector
     .find("div[class='rating-static visible-xs pad-none margin-none']")
     .attr('class');
-  rating.
 
   return {
-    username,
+    username
 
   };
 };
@@ -54,5 +71,6 @@ const scrapDealerSite = async () => {
 
 module.exports = {
     fethHtml:fethHtml,
-    scrapDealerSite:scrapDealerSite
+    scrapDealerSite:scrapDealerSite,
+    extractRatingNumber:extractRatingNumber
 };
