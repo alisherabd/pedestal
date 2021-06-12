@@ -934,28 +934,38 @@ const fakedada = [
       }
 ]
 
-const getUsersWithMultipleOccurance = (users)=> {
+const getGroupByCriteriaRecords = (items, key, occurance) =>{
     let hashSet = new Map()
-    if(users && Array.isArray(users) && users.length>0){
-        //check is the key exists in property
-        if(!('username' in users[0])){
-            return [];
-        }
-        users.forEach((value)=>{
-            if(hashSet.has(value.username)){
-                hashSet.set(value.username,hashSet.get(value.username)+1)
-            }
-            else{
-                hashSet.set(value.username,1)
+    if(items && Array.isArray(items) && items.length>0){
+        items.forEach((value)=>{
+            //check is the key exists in property
+            if(key in value){
+                if(hashSet.has(value[key])){
+                    hashSet.set(value[key],hashSet.get(value[key])+1)
+                }
+                else{
+                    hashSet.set(value[key],1)
+                }
             }
         })
-        const groupedKeys = Array.from(hashSet, ([username, value]) => ({ username, value }));
-        const havingMoreThenOneKeysArray = groupedKeys.filter(x=>x.value>1);
-        const getKeysfromArray = havingMoreThenOneKeysArray.map(x=>x.username);
-        const result = users.filter(userfromall => getKeysfromArray.includes(userfromall.username));
+        const groupedKeys = Array.from(hashSet, ([item, value]) => ({ item, value }));
+        const havingMoreThenOneKeysArray = groupedKeys.filter(x=>x.value>occurance);
+        const getKeysfromArray = havingMoreThenOneKeysArray.map(x=>x.item);
+        const result = items.filter(keysfromall => getKeysfromArray.includes(keysfromall[key]));
         return result;
     }
     return [];
+}
+
+const recordsWithSameUser = (users)=> {
+    return getGroupByCriteriaRecords(user,'username',1);
+}
+const recordsWithSameComment = (users)=> {
+    return getGroupByCriteriaRecords(user,'username',1);
+}
+
+const recordsWithSameDate = (users)=>{
+    return getGroupByCriteriaRecords(user,'date',1);
 }
 const usersWithAllFiveStars = (users)=>{
     if(users && Array.isArray(users) && users.length>0){
@@ -972,11 +982,14 @@ const usersWithAllFiveStars = (users)=>{
     return [];
 }
 
-//console.log(getUsersWithMultipleOccurance(fakedada));
+//console.log(getGroupByCreteriaRecords(fakedada));
 //console.log(usersWithAllFiveStars(fakedada));
+//console.log(recordsWithSameDate(fakedada));
 
 // these functions are exported for testing
 module.exports = {
     getUsersWithMultipleOccurance:getUsersWithMultipleOccurance,
-    usersWithAllFiveStars:usersWithAllFiveStars
+    usersWithAllFiveStars:usersWithAllFiveStars,
+    recordsWithSameDate:recordsWithSameDate,
+    getGroupByCriteriaRecords:getGroupByCriteriaRecords
 };

@@ -3,56 +3,64 @@ const expect = chai.expect
 
 const service = require('../src/service')
 
-describe("getUsersWithMultipleOccurance function based (username is main criteria)", () => {
+describe("getGroupByCriteriaRecords function based citeria and number of occurances", () => {
 	it("should return those users who has more than one occurances", async () => {
 		const mockData = [{username:"A",rating:5,val1:"sda"},{username:"A",rating:2,val2:"sdfg"},{username:"B",rating:10}]
 		const expected = [{username:"A",rating:5,val1:"sda"},{username:"A",rating:2,val2:"sdfg"}]
-		const result = service.getUsersWithMultipleOccurance(mockData);
+		const result = service.getGroupByCriteriaRecords(mockData,'username',1);
 
 		expect(result).eql(expected);
 	})
 
-	it("should return [] when no only one record exists of each occurence", async () => {
-		const mockData = [{username:"A",rating:2},{username:"B",rating:10}]
-		const result = service.getUsersWithMultipleOccurance(mockData);
+	it("should return those users who has more than one occurances and matching key", async () => {
+		const mockData = [{username:"A",rating:5,val1:"sda"},{username:"A",rating:2,val2:"sdfg"},{username:"B",rating:10},{username2:"B",rating:10}]
+		const expected = [{username:"A",rating:5,val1:"sda"},{username:"A",rating:2,val2:"sdfg"}]
+		const result = service.getGroupByCriteriaRecords(mockData,'username',1);
 
-		expect(result).eql([]);
+		expect(result).eql(expected);
+	})
+
+	it("should return based on occurance size", async () => {
+		const mockData = [{val:"A",rating:5,val1:"sda"},{val:"A",rating:2,val2:"sdfg"},{val:"B",rating:10},{val:"B",rating:10},{val:"B",rating:10,val3:"some value"}]
+		const expected = [{val:"B",rating:10},{val:"B",rating:10},{val:"B",rating:10,val3:"some value"}]
+		const result = service.getGroupByCriteriaRecords(mockData,'val',2);
+
+		expect(result).eql(expected);
 	})
 
 	it("should return [] when main criteria is missing", async () => {
 		const mockData = [{username1:"A",rating:2},{username1:"B",rating:10}]
-		const result = service.getUsersWithMultipleOccurance(mockData);
+		const result = service.getGroupByCriteriaRecords(mockData,'username',1);
 
 		expect(result).eql([]);
 	})
 
 	it("should return [] when input is []", async () => {
-		const result = service.getUsersWithMultipleOccurance([]);
+		const result = service.getGroupByCriteriaRecords([],'username',1);
 		expect(result).eql([]);
 	})
 
 	it("should return [] when input is undefined", async () => {
-		expect(service.getUsersWithMultipleOccurance(undefined)).eql([]);
+		expect(service.getGroupByCriteriaRecords(undefined,'username',1)).eql([]);
 	})
 
 	it("should return [] when input is null", async () => {
-		expect(service.getUsersWithMultipleOccurance(null)).eql([]);
+		expect(service.getGroupByCriteriaRecords(null,'username',1)).eql([]);
 	})
 
 	it("should return [] when input is not assigned", async () => {
 		let value;
-		expect(service.getUsersWithMultipleOccurance(value)).eql([]);
+		expect(service.getGroupByCriteriaRecords(value,'username',1)).eql([]);
 	})
 
 	it("should return [] when input is object, ", async () => {
 		
-		expect(service.getUsersWithMultipleOccurance({})).eql([]);
+		expect(service.getGroupByCriteriaRecords({},'username',1)).eql([]);
 	})
 
 	it("should return [] when input is number", async () => {
-		expect(service.getUsersWithMultipleOccurance(1)).eql([]);
+		expect(service.getGroupByCriteriaRecords(1,'username',1)).eql([]);
 	})
-
 })
 
 
@@ -116,3 +124,4 @@ describe("usersWithAllFiveStars function", () => {
 		expect(service.usersWithAllFiveStars(1)).eql([]);
 	})
 })
+
