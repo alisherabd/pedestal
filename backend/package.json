@@ -1,7 +1,7 @@
 {
   "name": "pedestal",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Dealer For the People",
   "main": "index.js",
   "scripts": {
     "test": "mocha"

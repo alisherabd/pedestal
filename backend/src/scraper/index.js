@@ -74,7 +74,7 @@ const collectReviewsFromMuplitplePages = async (numberOfPages) => {
     }
     return reviews;
 }
-
+//for checking data
 collectReviewsFromMuplitplePages(5).then((html)=>{
    console.log(html);
 });
