@@ -6,14 +6,15 @@
 
 
 very top criteria
-1
---all 5
---more then one records
---large text
 
-2
---all 5
---comment text lenght
+
+criterias to look
+-same user multiple time with same employers or without
+-everything 5 star
+-same comments
+-same date
+-small comment
+-same pattern in text - need to use a library
 
 
 ### Run test suites
