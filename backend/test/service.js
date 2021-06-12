@@ -55,3 +55,64 @@ describe("getUsersWithMultipleOccurance function based (username is main criteri
 
 })
 
+
+describe("usersWithAllFiveStars function", () => {
+	it("should filter only to five stars", async () => {
+		const mockData = [
+			{
+				rating: 50,
+				customer_service_rating: 50,
+				quality_of_work_rating: 50,
+				friendliness_rating: 50,
+				pricing_rating: 50,
+				overall_experience_rating: 50
+			},
+			{
+				rating: 1,
+				customer_service_rating: 50,
+				quality_of_work_rating: 50,
+				friendliness_rating: 50,
+				pricing_rating: 50,
+				overall_experience_rating: 50
+			}
+		]
+		const expected = [{
+			rating: 50,
+			customer_service_rating: 50,
+			quality_of_work_rating: 50,
+			friendliness_rating: 50,
+			pricing_rating: 50,
+			overall_experience_rating: 50
+		}]
+
+		const result = service.usersWithAllFiveStars(mockData);
+
+		expect(result).eql(expected);
+	}) 
+	it("should return [] when input is []", async () => {
+		const result = service.usersWithAllFiveStars([]);
+		expect(result).eql([]);
+	})
+
+	it("should return [] when input is undefined", async () => {
+		expect(service.usersWithAllFiveStars(undefined)).eql([]);
+	})
+
+	it("should return [] when input is null", async () => {
+		expect(service.usersWithAllFiveStars(null)).eql([]);
+	})
+
+	it("should return [] when input is not assigned", async () => {
+		let value;
+		expect(service.usersWithAllFiveStars(value)).eql([]);
+	})
+
+	it("should return [] when input is object, ", async () => {
+		
+		expect(service.usersWithAllFiveStars({})).eql([]);
+	})
+
+	it("should return [] when input is number", async () => {
+		expect(service.usersWithAllFiveStars(1)).eql([]);
+	})
+})
