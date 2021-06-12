@@ -102,9 +102,12 @@ const fakedada = [
 ]
 
 const getUsersWithMultipleOccurance = (users)=> {
-    let result = [];
     let hashSet = new Map()
-    if(users && Array.isArray(users)){
+    if(users && Array.isArray(users) && users.length>0){
+        //check is the key exists in property
+        if(!('username' in users[0])){
+            return [];
+        }
         users.forEach((value)=>{
             if(hashSet.has(value.username)){
                 hashSet.set(value.username,hashSet.get(value.username)+1)
@@ -113,17 +116,17 @@ const getUsersWithMultipleOccurance = (users)=> {
                 hashSet.set(value.username,1)
             }
         })
-        const keys = Array.from(hashSet, ([username, value]) => ({ username, value }));
-        const filter = keys.filter(x=>x.value>1);
-        // hashSet.forEach((v,k)=>{
-        //     console.log(k);
-        // })
-        return filter;
+        const groupedKeys = Array.from(hashSet, ([username, value]) => ({ username, value }));
+        const havingMoreThenOneKeysArray = groupedKeys.filter(x=>x.value>1);
+        const getKeysfromArray = havingMoreThenOneKeysArray.map(x=>x.username);
+        const result = users.filter(userfromall => getKeysfromArray.includes(userfromall.username));
+        return result;
     }
+    return [];
     
 }
 
-console.log(getUsersWithMultipleOccurance(fakedada));
+//console.log(getUsersWithMultipleOccurance(fakedada));
 
 // these functions are exported for testing
 module.exports = {

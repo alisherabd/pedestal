@@ -144,9 +144,9 @@ const collectReviewsFromMuplitplePages = async (numberOfPages) => {
 //    console.log(html);
 // });
 
-scrapDealerSite(1).then((html)=>{
-   console.log(html);
-});
+// scrapDealerSite(1).then((html)=>{
+//    console.log(html);
+// });
 
 // these functions are exported for testing
 module.exports = {
