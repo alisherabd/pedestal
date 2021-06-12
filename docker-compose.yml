@@ -4,7 +4,9 @@ services:
         image: "redis:alpine"
         command: ["redis-server", "--appendonly", "yes","--requirepass","khi7iogU^R"]
         ports:
-         - "6379:6379"
+            - "6379:6379"
+        expose:
+            - "6379"
         volumes:
          - redis-data:/var/lib/redis
          - redis.conf:/usr/local/etc/redis/redis.conf

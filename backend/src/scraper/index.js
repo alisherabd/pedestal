@@ -75,9 +75,9 @@ const collectReviewsFromMuplitplePages = async (numberOfPages) => {
     return reviews;
 }
 //for checking data
-collectReviewsFromMuplitplePages(5).then((html)=>{
-   console.log(html);
-});
+// collectReviewsFromMuplitplePages(5).then((html)=>{
+//    console.log(html);
+// });
 
 // these functions are exported for testing
 module.exports = {
