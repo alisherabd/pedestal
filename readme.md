@@ -9,3 +9,7 @@
 
 ### Run test suites
 
+
+
+
+docker-compose up --build
