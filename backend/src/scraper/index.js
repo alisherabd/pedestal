@@ -26,16 +26,8 @@ const extractRatingNumber = classNames=>{
                 }
             }
         }
-        return parseInt(result);
     }
-    if(isNaN(result) || result.length===0)         // isNaN(result) returns true if the variable does NOT contain a valid number
-    {
-        return -1;
-    }
-    else{
-        return parseInt(result);
-    }
-    
+    return parseInt(result);
 }
 
 const extractDeal = selector => {
