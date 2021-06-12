@@ -988,7 +988,6 @@ const usersWithAllFiveStars = (users)=>{
 
 // these functions are exported for testing
 module.exports = {
-    getUsersWithMultipleOccurance:getUsersWithMultipleOccurance,
     usersWithAllFiveStars:usersWithAllFiveStars,
     recordsWithSameDate:recordsWithSameDate,
     getGroupByCriteriaRecords:getGroupByCriteriaRecords
