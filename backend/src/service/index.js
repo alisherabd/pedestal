@@ -956,7 +956,9 @@ const getGroupByCriteriaRecords = (items, key, occurance) =>{
     }
     return [];
 }
+const excludeFromArrayByCriteria = (items,key) =>{
 
+}
 const recordsWithSameUser = (users)=> {
     return getGroupByCriteriaRecords(user,'username',1);
 }
@@ -982,9 +984,21 @@ const usersWithAllFiveStars = (users)=>{
     return [];
 }
 
+const getTopThreeSuspectUsers = (users,topValue)=>{
+    let result = [];
+    let suspects = recordsWithSameUser(users);
+    suspects = usersWithAllFiveStars(suspects);
+    suspects = recordsWithSameDate(suspects);
+    suspects = recordsWithSameComment(suspects);
+    result = suspects;
+    if(result.length<topValue){
+
+    }
+}
+
 //console.log(getGroupByCreteriaRecords(fakedada));
 //console.log(usersWithAllFiveStars(fakedada));
-//console.log(recordsWithSameDate(fakedada));
+//console.log(getTopThreeSuspectUsers(fakedada));
 
 // these functions are exported for testing
 module.exports = {

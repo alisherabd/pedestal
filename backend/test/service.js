@@ -125,3 +125,26 @@ describe("usersWithAllFiveStars function", () => {
 	})
 })
 
+describe("excludeFromArrayByCriteria function", () => {
+	it("should not include given key", async () => {
+		const mockData = [{username:"A",rating:5,val1:"sda"},{username:"A",rating:2,val2:"sdfg"},{username:"B",rating:10},{username:"C",rating:10}]
+		const expected = [{username:"B",rating:10},{username:"C",rating:10}]
+		const result = service.excludeFromArrayByCriteria(mockData,'username','A');
+
+		expect(result).eql(expected);
+	}) 
+
+	it("should not change anything if key is not present", async () => {
+		const mockData = [{username:"A",rating:5,val1:"sda"},{username:"A",rating:2,val2:"sdfg"},{username:"B",rating:10},{username:"C",rating:10}]
+		const result = service.excludeFromArrayByCriteria(mockData,'username','D');
+
+		expect(result).eql(mockData);
+	}) 
+
+	it("should not change anything if property is not present", async () => {
+		const mockData = [{username1:"A",rating:5,val1:"sda"},{username1:"A",rating:2,val2:"sdfg"},{username2:"B",rating:10},{username2:"C",rating:10}]
+		const result = service.excludeFromArrayByCriteria(mockData,'username','D');
+
+		expect(result).eql(mockData);
+	}) 
+});
