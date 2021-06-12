@@ -956,8 +956,12 @@ const getGroupByCriteriaRecords = (items, key, occurance) =>{
     }
     return [];
 }
-const excludeFromArrayByCriteria = (items,key) =>{
-
+const excludeFromArrayByCriteria = (items,key,value) =>{
+    if(items && Array.isArray(items) && items.length>0){
+        const result = items.filter(item => !((key in item) && item[key]===value));
+        return result;
+    }
+    return items;
 }
 const recordsWithSameUser = (users)=> {
     return getGroupByCriteriaRecords(user,'username',1);
@@ -1004,5 +1008,6 @@ const getTopThreeSuspectUsers = (users,topValue)=>{
 module.exports = {
     usersWithAllFiveStars:usersWithAllFiveStars,
     recordsWithSameDate:recordsWithSameDate,
-    getGroupByCriteriaRecords:getGroupByCriteriaRecords
+    getGroupByCriteriaRecords:getGroupByCriteriaRecords,
+    excludeFromArrayByCriteria:excludeFromArrayByCriteria
 };
