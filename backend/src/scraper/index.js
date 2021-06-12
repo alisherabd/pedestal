@@ -40,12 +40,62 @@ const extractSpecificValuesFromEachIteration = selector => {
   let rating = selector
     .find("div > div[class='col-xs-6 col-sm-12 pad-none dealership-rating'] > div")
     .attr('class');
+  let customer_service_rating = selector
+    .find("div[class='pull-left pad-left-md pad-right-md bg-grey-lt margin-bottom-md review-ratings-all review-hide'] > div")
+    .find("div:nth-child(1)")
+    .find("div:nth-child(2)")
+    .attr('class');
+  let quality_of_work_rating = selector
+    .find("div[class='pull-left pad-left-md pad-right-md bg-grey-lt margin-bottom-md review-ratings-all review-hide'] > div")
+    .find("div:nth-child(2)")
+    .find("div:nth-child(2)")
+    .attr('class');
+  let friendliness_rating = selector
+    .find("div[class='pull-left pad-left-md pad-right-md bg-grey-lt margin-bottom-md review-ratings-all review-hide'] > div")
+    .find("div:nth-child(3)")
+    .find("div:nth-child(2)")
+    .attr('class');
+  let pricing_rating = selector
+    .find("div[class='pull-left pad-left-md pad-right-md bg-grey-lt margin-bottom-md review-ratings-all review-hide'] > div")
+    .find("div:nth-child(4)")
+    .find("div:nth-child(2)")
+    .attr('class');
+  let overall_experience_rating = selector
+    .find("div[class='pull-left pad-left-md pad-right-md bg-grey-lt margin-bottom-md review-ratings-all review-hide'] > div")
+    .find("div:nth-child(5)")
+    .find("div:nth-child(2)")
+    .attr('class');
+  let recommended_dealer_rating = selector
+    .find("div[class='pull-left pad-left-md pad-right-md bg-grey-lt margin-bottom-md review-ratings-all review-hide'] > div")
+    .find("div:nth-child(6)")
+    .find("div:nth-child(2)")
+    .attr('class');
+  let comment_text= selector
+    .find("div[class='tr margin-top-md'] > div >p")
+    .text();
+
+
+
   rating = extractRatingNumber(rating)
+  customer_service_rating = extractRatingNumber(customer_service_rating)
+  quality_of_work_rating = extractRatingNumber(quality_of_work_rating)
+  friendliness_rating = extractRatingNumber(friendliness_rating)
+  pricing_rating = extractRatingNumber(pricing_rating)
+  overall_experience_rating = extractRatingNumber(overall_experience_rating)
+  recommended_dealer_rating = extractRatingNumber(recommended_dealer_rating)
+
   username = username.replace("- ","");
 
   return {
     username,
-    rating
+    rating,
+    customer_service_rating,
+    quality_of_work_rating,
+    friendliness_rating,
+    pricing_rating,
+    overall_experience_rating,
+    recommended_dealer_rating,
+    comment_text
   };
 };
 
@@ -75,9 +125,13 @@ const collectReviewsFromMuplitplePages = async (numberOfPages) => {
     return reviews;
 }
 //for checking data
-// collectReviewsFromMuplitplePages(5).then((html)=>{
+// collectReviewsFromMuplitplePages(20).then((html)=>{
 //    console.log(html);
 // });
+
+scrapDealerSite(1).then((html)=>{
+   console.log(html);
+});
 
 // these functions are exported for testing
 module.exports = {

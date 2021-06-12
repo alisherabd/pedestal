@@ -5,6 +5,15 @@
 - 3 outputs these three reviews to the console, in order of severity
 
 
+very top criteria
+1
+--all 5
+--more then one records
+--large text
+
+2
+--all 5
+--comment text lenght
 
 
 ### Run test suites
