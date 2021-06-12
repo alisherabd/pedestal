@@ -13,13 +13,15 @@ const fethHtml = async url => {
 const extractRatingNumber = classNames=>{
     const prefix = 'rating-';
     let result = "";
-    for (let classname of classNames.split(' ')) {
-        if(classname.includes(prefix)){
-            result = classname;
-            break;
+    if(classNames){
+        for (let classname of classNames.split(' ')) {
+            if(classname.includes(prefix)){
+                result = classname;
+                break;
+            }
         }
+        result=result.replace(prefix,"");
     }
-    result=result.replace(prefix,"");
     if(isNaN(result) || result.length===0)         // isNaN(result) returns true if the variable does NOT contain a valid number
     {
         return -1;
@@ -36,12 +38,15 @@ const extractDeal = selector => {
     .text()
     .trim();
 
-  const rating = selector
+  let rating = selector
     .find("div[class='rating-static visible-xs pad-none margin-none']")
     .attr('class');
+  rating = extractRatingNumber(rating)
+
 
   return {
-    username
+    username,
+    rating
 
   };
 };

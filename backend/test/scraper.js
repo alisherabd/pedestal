@@ -12,23 +12,52 @@ describe("fetchHtml function", () => {
 
 
 
-describe("extract rating from class name that contains 'rating-' prefix", () => {
-	it("should have numeric value as a return",  () => {
-		var mockData = "calss1 class2 class3 rating-35"
-		var actual = scraper.extractRatingNumber(mockData);
+describe("extractRatingNumber function", () => {
+	it("should have numeric value as a return when have 'rating-' as a prefix",  () => {
+		const mockData = "calss1 class2 class3 rating-35"
+		const actual = scraper.extractRatingNumber(mockData);
 		expect(actual).to.equal(35);
 	})
 
 
-	it("should have first occurence of number with same prefix",  () => {
-		var mockData = "calss1 class2 class3 rating-35 rating-100"
-		var actual = scraper.extractRatingNumber(mockData);
+	it("should have first occurence of number with same prefix 'rating-'",  () => {
+		const mockData = "calss1 class2 class3 rating-35 rating-100"
+		const actual = scraper.extractRatingNumber(mockData);
 		expect(actual).to.equal(35);
 	})
 
-	it("should return -1 if no prefix is found",  () => {
-		var mockData = "calss1 class2 class3"
-		var actual = scraper.extractRatingNumber(mockData);
+	it("should return -1 if no prefix 'rating-' is found",  () => {
+		const mockData = "calss1 class2 class3"
+		const actual = scraper.extractRatingNumber(mockData);
+		expect(actual).to.equal(-1);
+	})
+	it("should return -1 if input is empty string",  () => {
+		const mockData = ""
+		const actual = scraper.extractRatingNumber(mockData);
+		expect(actual).to.equal(-1);
+	})
+
+	it("should return -1 if input is null",  () => {
+		const mockData = null
+		const actual = scraper.extractRatingNumber(mockData);
+		expect(actual).to.equal(-1);
+	})
+
+	it("should return -1 if input is undefined",  () => {
+		const mockData = undefined
+		const actual = scraper.extractRatingNumber(mockData);
+		expect(actual).to.equal(-1);
+	})
+
+	it("should return -1 if input not assigned",  () => {
+		let mockData;
+		const actual = scraper.extractRatingNumber(mockData);
+		expect(actual).to.equal(-1);
+	})
+
+	it("should return -1 if input is single word",  () => {
+		const mockData = "class";
+		const actual = scraper.extractRatingNumber(mockData);
 		expect(actual).to.equal(-1);
 	})
 })
