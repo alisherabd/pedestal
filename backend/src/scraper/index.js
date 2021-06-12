@@ -73,8 +73,19 @@ const extractSpecificValuesFromEachIteration = selector => {
   let comment_text= selector
     .find("div[class='tr margin-top-md'] > div >p")
     .text();
-
-
+  let number_of_employees = selector
+    .find("div[class='col-xs-12 col-sm-9 pad-none review-wrapper']")
+    .find("div[class='clear-fix  margin-top-sm']")
+    .find("div[class='col-xs-12 lt-grey pad-left-none employees-wrapper']")
+    .children().length;
+  let date = selector
+    .find("div[class='col-xs-12 col-sm-3 pad-left-none text-center review-date margin-bottom-md']")
+    .find("div[class='italic col-xs-6 col-sm-12 pad-none margin-none font-20']")
+    .text();
+  let visit = selector
+    .find("div[class='col-xs-12 col-sm-3 pad-left-none text-center review-date margin-bottom-md']")
+    .find("div[class='col-xs-12 hidden-xs pad-none margin-top-sm small-text dr-grey']")
+    .text();
 
   rating = extractRatingNumber(rating)
   customer_service_rating = extractRatingNumber(customer_service_rating)
@@ -85,6 +96,7 @@ const extractSpecificValuesFromEachIteration = selector => {
   recommended_dealer_rating = extractRatingNumber(recommended_dealer_rating)
 
   username = username.replace("- ","");
+  number_of_employees = (number_of_employees>0?number_of_employees-1:0)
 
   return {
     username,
@@ -95,7 +107,10 @@ const extractSpecificValuesFromEachIteration = selector => {
     pricing_rating,
     overall_experience_rating,
     recommended_dealer_rating,
-    comment_text
+    comment_text,
+    number_of_employees,
+    date,
+    visit
   };
 };
 
