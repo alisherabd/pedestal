@@ -12,15 +12,21 @@ const fethHtml = async url => {
 
 const extractRatingNumber = classNames=>{
     const prefix = 'rating-';
-    let result = "";
+    let result = "-1";
     if(classNames){
         for (let classname of classNames.split(' ')) {
             if(classname.includes(prefix)){
-                result = classname;
-                break;
+                result=classname.replace(prefix,"");
+                if(result.length>0 && !isNaN(result))         // isNaN(result) returns true if the variable does NOT contain a valid number
+                {
+                    break;
+                }
+                else{
+                    result="-1";
+                }
             }
         }
-        result=result.replace(prefix,"");
+        return parseInt(result);
     }
     if(isNaN(result) || result.length===0)         // isNaN(result) returns true if the variable does NOT contain a valid number
     {
@@ -33,21 +39,21 @@ const extractRatingNumber = classNames=>{
 }
 
 const extractDeal = selector => {
-  const username = selector
+  let username = selector
     .find("span[class='italic font-18 black notranslate']")
     .text()
     .trim();
-
+    username
   let rating = selector
-    .find("div[class='rating-static visible-xs pad-none margin-none']")
+    .find("div")
+    .find("div > div[class='col-xs-6 col-sm-12 pad-none dealership-rating'] > div")
     .attr('class');
   rating = extractRatingNumber(rating)
-
+  username = username.replace("- ","");
 
   return {
     username,
     rating
-
   };
 };
 
@@ -68,10 +74,10 @@ const scrapDealerSite = async () => {
   return reviews;
 };
 
-// scrapDealerSite().then((html)=>{
-//     console.log(html);
+scrapDealerSite().then((html)=>{
+    console.log(html);
 
-// });
+});
 
 
 module.exports = {

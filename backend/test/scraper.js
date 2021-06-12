@@ -13,15 +13,16 @@ describe("fetchHtml function", () => {
 
 
 describe("extractRatingNumber function", () => {
+	const prefix = "rating-";
 	it("should have numeric value as a return when have 'rating-' as a prefix",  () => {
-		const mockData = "calss1 class2 class3 rating-35"
+		const mockData = `calss1 class2 class3 ${prefix}35`
 		const actual = scraper.extractRatingNumber(mockData);
 		expect(actual).to.equal(35);
 	})
 
 
 	it("should have first occurence of number with same prefix 'rating-'",  () => {
-		const mockData = "calss1 class2 class3 rating-35 rating-100"
+		const mockData = `calss1 class2 class3 ${prefix}35 ${prefix}100`
 		const actual = scraper.extractRatingNumber(mockData);
 		expect(actual).to.equal(35);
 	})
@@ -59,5 +60,17 @@ describe("extractRatingNumber function", () => {
 		const mockData = "class";
 		const actual = scraper.extractRatingNumber(mockData);
 		expect(actual).to.equal(-1);
+	})
+
+	it("should return -1 if contains prefix with non-numeric value",  () => {
+		const mockData = `${prefix}class`;
+		const actual = scraper.extractRatingNumber(mockData);
+		expect(actual).to.equal(-1);
+	})
+
+	it("should return valid result if contains prefix with numeric after non-numeric prefix value",  () => {
+		const mockData = `${prefix}class ${prefix}class1 ${prefix}35 ${prefix}100`;
+		const actual = scraper.extractRatingNumber(mockData);
+		expect(actual).to.equal(35);
 	})
 })
