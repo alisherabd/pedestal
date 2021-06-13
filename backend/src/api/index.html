@@ -37,7 +37,7 @@
             let numberofpages = $("#numberofpages").val();
             let numberofsuspects = $("#numberofsuspects").val();
             $.post(
-              "/gettop",
+              "/api/gettop",
               { numberofpages: numberofpages, numberofsuspects: numberofsuspects },
               function (data) {
                     var html = ejs.render(`
