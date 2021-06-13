@@ -11,11 +11,6 @@ Each review section consist of:
 - date
 - number of employees customer met
 
-  let suspects = usersWithAllFiveStars(users);
-    suspects = recordsWithSameDate(suspects);
-    suspects = recordsWithSameUser(suspects);
-    suspects = recordsWithSameComment(suspects);
-
 To find top N offenders I chose to start with collecting all offenders that inclusively have:
 1) all ratings are 5 star
 2) all users records with same date
@@ -42,5 +37,5 @@ clone this repo
 
 
 ## Developer Notes
-to clear terminal completely
+to clear terminal completely on Mac
 >  clear && printf '\e[3J'
