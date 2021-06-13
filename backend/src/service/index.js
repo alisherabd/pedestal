@@ -1013,38 +1013,40 @@ const usersWithAllFiveStars = (users)=>{
     return [];
 }
 
-const getTopThreeSuspectUsers = (users,topValue)=>{
+const getTopNSuspectUsers = (users,topValue)=>{
     let result = [];
     let suspects = usersWithAllFiveStars(users);
     suspects = recordsWithSameDate(suspects);
     suspects = recordsWithSameUser(suspects);
     suspects = recordsWithSameComment(suspects);
     result = [...suspects];
-    console.log(result)
-
+    result = distinctifyArrayByCriteria(result,'username');
     if(result.length<topValue){ 
         users = excludeFromArrayByCriteria(users,result,'username');
         suspects = usersWithAllFiveStars(users);
         suspects = recordsWithSameDate(suspects);
         suspects = recordsWithSameUser(suspects);
-        result = [...result,suspects]
+        result = [...result,...suspects]
+        result = distinctifyArrayByCriteria(result,'username');
     }
     if(result.length<topValue){ 
         users = excludeFromArrayByCriteria(users,result,'username');
         suspects = usersWithAllFiveStars(users);
         suspects = recordsWithSameDate(suspects);
-        result = [...result,suspects]
+        result = [...result,...suspects]
+        result = distinctifyArrayByCriteria(result,'username');
     }
     if(result.length<topValue){ 
         users = excludeFromArrayByCriteria(users,result,'username');
         suspects = usersWithAllFiveStars(users);
-        result = [...result,suspects]
+        result = [...result,...suspects]
+        result = distinctifyArrayByCriteria(result,'username');
     }
-    return result;
+    return result.slice(0, topValue);
 }
 
-//const r = getTopThreeSuspectUsers(fakedada,3);
-//console.log(r);
+const r = getTopNSuspectUsers(fakedada,3);
+console.log(r);
 
 // these functions are exported for testing and for using externaly
 module.exports = {

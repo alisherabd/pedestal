@@ -167,4 +167,56 @@ describe("distinctifyArrayByCriteria function", () => {
 	}) 
 
 
+
+	it("should be as is if username for each item is exactly once", async () => {
+		const mockData = [{
+			username: 'Monica1815.mh',
+			rating: 50,
+			customer_service_rating: 50,
+			quality_of_work_rating: 50,
+			friendliness_rating: 50,
+			pricing_rating: 50,
+			overall_experience_rating: 50,
+			recommended_dealer_rating: -1,
+			comment_text: 'Patrick is just The Best ... there’s really no better way to put it.  I have been a customer of McKaig Chevrolet Buick for several years now, and every time I have an issue, Patrick is my go-to guy!  He is so friendly and knowledgeable!!  He has not only resolved every issue that I have ever had, but he does it over-the-top, so to say ... he does a better job than he even has to.  He answers my questions after hours and puts up with all of my whining. LOL\n' +
+			  'I couldn’t recommend a better service guy if I wanted to.  Go see Patrick and he will DEFINITELY take care of you !!!',
+			number_of_employees: 8,
+			date: 'February 26, 2021',
+			visit: 'SERVICE VISIT'
+		  },
+		  {
+			username: 'Monica1815.mh',
+			rating: 50,
+			customer_service_rating: 50,
+			quality_of_work_rating: 50,
+			friendliness_rating: 50,
+			pricing_rating: 50,
+			overall_experience_rating: 50,
+			recommended_dealer_rating: -1,
+			comment_text: 'This is the 2nd vehicle I have purchased from McKaig Chevrolet Buick, and I wouldn’t purchase a vehicle anywhere else!  Their service department has taken care of me exceptionally several times, especially Patrick Evans!  He is so friendly and so knowledgeable.  I had a small wreck in my 2018 Chevy Traverse that I purchased from McKaig, and Patrick recommended Adrian Cortes to sell me a new vehicle on the spot instead of fixing my Traverse and I took the bait willingly!  LOL !!!  I knew that Adrian would put me in a reliable vehicle that would fit my needs, including 4-wheel drive, having to fit a 6’4” man in the front passenger seat and 2 big car seats in the back, not to mention TONS of room in the back for all my junk and groceries.  Needless to say, Adrian  fixed me up in a 2018 4x4 Jeep Grand Cherokee that is loaded to the max and is WAY sportier and more luxurious than what I had before.  I told Adrian what I wanted in a vehicle and he took me right to it, where I immediately fell in love with the All-Black look, even the 20” wheels.  I feel like a Cool Mom now thanks to Adrian!  I will DEFINITELY purchase my next vehicle from him!  I couldn’t be happier!',
+			number_of_employees: 8,
+			date: 'February 26, 2021',
+			visit: 'SALES VISIT - USED'
+		  }]
+		  const expected = [{
+			username: 'Monica1815.mh',
+			rating: 50,
+			customer_service_rating: 50,
+			quality_of_work_rating: 50,
+			friendliness_rating: 50,
+			pricing_rating: 50,
+			overall_experience_rating: 50,
+			recommended_dealer_rating: -1,
+			comment_text: 'Patrick is just The Best ... there’s really no better way to put it.  I have been a customer of McKaig Chevrolet Buick for several years now, and every time I have an issue, Patrick is my go-to guy!  He is so friendly and knowledgeable!!  He has not only resolved every issue that I have ever had, but he does it over-the-top, so to say ... he does a better job than he even has to.  He answers my questions after hours and puts up with all of my whining. LOL\n' +
+			  'I couldn’t recommend a better service guy if I wanted to.  Go see Patrick and he will DEFINITELY take care of you !!!',
+			number_of_employees: 8,
+			date: 'February 26, 2021',
+			visit: 'SERVICE VISIT'
+		  }]
+		const result = service.distinctifyArrayByCriteria(mockData,'username');
+
+		expect(result).eql(expected);
+	}) 
+
+
 })
