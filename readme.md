@@ -2,6 +2,8 @@
 
 This API project scrape reviews for this dealership "McKaig Chevrolet Buick" from DealerRater.com and uncover the top N worst offenders of these overly positive endorsements.
 
+Try [DEMO](https://dealership-pedestal.herokuapp.com)
+
 ## Analysis
 
 Each review section consist of:
