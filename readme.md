@@ -1,6 +1,6 @@
 # Pedestal - "Dealer For the People"
 
-This API project scrape reviews for this dealership "McKaig Chevrolet Buick" from DealerRater.com and uncover the top N worst offenders of these overly positive endorsements.
+This API project scrape reviews for the dealership "McKaig Chevrolet Buick" from DealerRater.com and uncover the top N users of overly positive endorsements.
 
 Try [DEMO](https://dealership-pedestal.herokuapp.com)
 

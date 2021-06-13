@@ -48,7 +48,7 @@
             )
             .success(function(data) { var html = ejs.render(`
                     <div class="alert alert-warning" role="alert">
-                        Serach results for top <%= data.users.length %> offender(s) from <strong>dealerrater.com</strong>. This is the result of first <%= data.pages %> review page(s), specifically for "McKaig Chevrolet Buick" dealership.
+                        Serach results for top <%= data.users.length %> users of overly positive endorsements from <strong>dealerrater.com</strong>. This is the result of first <%= data.pages %> review page(s), specifically for "McKaig Chevrolet Buick" dealership.
                     </div>
                     <% for(let i = 0; i < data.users.length; i++) { %>
                         <div class="card text-center">
