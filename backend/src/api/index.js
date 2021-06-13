@@ -1,5 +1,6 @@
 const express = require('express');
 const service = require('../service')
+const redis = require('../redis')
 const scraper = require("../scraper")
 const app = express();
 
