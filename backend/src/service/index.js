@@ -129,7 +129,7 @@ const getDataFromScraper = async (numberOfPages, numberOfUsers) =>{
     const numberofsuspects = tryParseNumericValuewWithDefault(numberOfUsers,3);
     const users = await scraper.collectReviewsFromMuplitplePages(numberofpages)
     const suspectusers = getTopNSuspectUsers(users,numberofsuspects)
-    return suspectusers;
+    return {users:suspectusers,pages:numberofpages};
 }
 
 

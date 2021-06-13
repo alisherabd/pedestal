@@ -48,24 +48,24 @@
             )
             .success(function(data) { var html = ejs.render(`
                     <div class="alert alert-warning" role="alert">
-                        Serach results for top <%= users.length %> offender(s) from dealerrater.com. Only <%= pages %> review page(s) are used, specifically for "McKaig Chevrolet Buick" dealership.
+                        Serach results for top <%= data.users.length %> offender(s) from <strong>dealerrater.com</strong>. This is the result of first <%= data.pages %> review page(s), specifically for "McKaig Chevrolet Buick" dealership.
                     </div>
-                    <% for(let i = 0; i < users.length; i++) { %>
+                    <% for(let i = 0; i < data.users.length; i++) { %>
                         <div class="card text-center">
                             <div class="card-header">
-                                User: @<%= users[i].username %>
+                                User: @<%= data.users[i].username %>
                             </div>
                             <div class="card-body">
-                            <h5 class="card-title"><%= users[i].visit%></h5>
-                            <p class="card-text"><%= users[i].comment_text%></p>
-                            <a href="#" class="btn btn-secondary">Number of Employees: <%= users[i].number_of_employees%></a>
+                            <h5 class="card-title"><%= data.users[i].visit%></h5>
+                            <p class="card-text"><%= data.users[i].comment_text%></p>
+                            <a href="#" class="btn btn-secondary">Number of Employees: <%= data.users[i].number_of_employees%></a>
                             </div>
                             <div class="card-footer text-muted">
-                                <%= users[i].date %>
+                                <%= data.users[i].date %>
                             </div>
                         </div> <br>
                     <% } %>
-                `, {users: data, pages:numberofpages});
+                `, {data: data, pages:numberofpages});
 
                 $('#output').html(html);
                 toggleSpinner();
