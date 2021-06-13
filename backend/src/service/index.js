@@ -1,4 +1,6 @@
 
+const redis = require('../redis')
+const scraper = require("../scraper")
 
 const getGroupByCriteriaRecords = (items, key, occurance) =>{
     let hashSet = new Map()
@@ -122,6 +124,16 @@ const tryParseNumericValuewWithDefault = (str, defaultValue=0)=>{
     return retValue;
 }
 
+const getDataFromScraper = async (numberOfPages, numberOfUsers) =>{
+    const numberofpages = tryParseNumericValuewWithDefault(numberOfPages,5);
+    const numberofsuspects = tryParseNumericValuewWithDefault(numberOfUsers,3);
+    const users = await scraper.collectReviewsFromMuplitplePages(numberofpages)
+    const suspectusers = getTopNSuspectUsers(users,numberofsuspects)
+    return suspectusers;
+}
+
+
+
 //const r = getTopNSuspectUsers(fakedada,3);
 //console.log(r);
 
@@ -132,5 +144,6 @@ module.exports = {
     excludeFromArrayByCriteria:excludeFromArrayByCriteria,
     distinctifyArrayByCriteria:distinctifyArrayByCriteria,
     getTopNSuspectUsers:getTopNSuspectUsers,
-    tryParseNumericValuewWithDefault:tryParseNumericValuewWithDefault
+    tryParseNumericValuewWithDefault:tryParseNumericValuewWithDefault,
+    getDataFromScraper:getDataFromScraper
 };
