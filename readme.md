@@ -23,3 +23,11 @@ criterias to look
 
 npm test
 docker-compose up --build
+
+
+
+
+
+Developer sidenote:
+to clean terminal completely
+>>>clear && printf '\e[3J'

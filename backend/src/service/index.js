@@ -956,22 +956,47 @@ const getGroupByCriteriaRecords = (items, key, occurance) =>{
     }
     return [];
 }
-const excludeFromArrayByCriteria = (items,key,value) =>{
-    if(items && Array.isArray(items) && items.length>0){
-        const result = items.filter(item => !((key in item) && item[key]===value));
+const excludeFromArrayByCriteria = (items,itemstoexclude,key) =>{
+    let hashSet = new Set()
+    if(itemstoexclude && Array.isArray(itemstoexclude) && itemstoexclude.length>0 && items && Array.isArray(items) && items.length>0){
+        itemstoexclude.forEach((value)=>{
+            //check is the key exists in property
+            if(key in value){
+                hashSet.add(value[key]);
+            }
+        })
+        const allValuesToExclude = Array.from(hashSet);
+        const result = items.filter(item => !allValuesToExclude.includes(item[key]));
         return result;
     }
     return items;
 }
+const distinctifyArrayByCriteria = (items,key) =>{
+    let result = [];
+    let hashSet = new Set()
+    if(items && Array.isArray(items) && items.length>0){
+        items.forEach((value)=>{
+            //check is the key exists in property
+            if(key in value){
+                if(!hashSet.has(value[key])){
+                    result.push(value)
+                    hashSet.add(value[key])
+                }
+            }
+        })
+    }
+    return result;
+}
+
 const recordsWithSameUser = (users)=> {
-    return getGroupByCriteriaRecords(user,'username',1);
+    return getGroupByCriteriaRecords(users,'username',1);
 }
 const recordsWithSameComment = (users)=> {
-    return getGroupByCriteriaRecords(user,'username',1);
+    return getGroupByCriteriaRecords(users,'comment_text',1);
 }
 
 const recordsWithSameDate = (users)=>{
-    return getGroupByCriteriaRecords(user,'date',1);
+    return getGroupByCriteriaRecords(users,'date',1);
 }
 const usersWithAllFiveStars = (users)=>{
     if(users && Array.isArray(users) && users.length>0){
@@ -990,24 +1015,41 @@ const usersWithAllFiveStars = (users)=>{
 
 const getTopThreeSuspectUsers = (users,topValue)=>{
     let result = [];
-    let suspects = recordsWithSameUser(users);
-    suspects = usersWithAllFiveStars(suspects);
+    let suspects = usersWithAllFiveStars(users);
     suspects = recordsWithSameDate(suspects);
+    suspects = recordsWithSameUser(suspects);
     suspects = recordsWithSameComment(suspects);
-    result = suspects;
-    if(result.length<topValue){
+    result = [...suspects];
+    console.log(result)
 
+    if(result.length<topValue){ 
+        users = excludeFromArrayByCriteria(users,result,'username');
+        suspects = usersWithAllFiveStars(users);
+        suspects = recordsWithSameDate(suspects);
+        suspects = recordsWithSameUser(suspects);
+        result = [...result,suspects]
     }
+    if(result.length<topValue){ 
+        users = excludeFromArrayByCriteria(users,result,'username');
+        suspects = usersWithAllFiveStars(users);
+        suspects = recordsWithSameDate(suspects);
+        result = [...result,suspects]
+    }
+    if(result.length<topValue){ 
+        users = excludeFromArrayByCriteria(users,result,'username');
+        suspects = usersWithAllFiveStars(users);
+        result = [...result,suspects]
+    }
+    return result;
 }
 
-//console.log(getGroupByCreteriaRecords(fakedada));
-//console.log(usersWithAllFiveStars(fakedada));
-//console.log(getTopThreeSuspectUsers(fakedada));
+//const r = getTopThreeSuspectUsers(fakedada,3);
+//console.log(r);
 
-// these functions are exported for testing
+// these functions are exported for testing and for using externaly
 module.exports = {
     usersWithAllFiveStars:usersWithAllFiveStars,
-    recordsWithSameDate:recordsWithSameDate,
     getGroupByCriteriaRecords:getGroupByCriteriaRecords,
-    excludeFromArrayByCriteria:excludeFromArrayByCriteria
+    excludeFromArrayByCriteria:excludeFromArrayByCriteria,
+    distinctifyArrayByCriteria:distinctifyArrayByCriteria
 };
