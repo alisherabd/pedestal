@@ -12,10 +12,10 @@ app.get("/",  async (req, res) => {
 });
 
 app.post("/gettop", async (req, res) => {
-    const numberofpages = req.body.numberofpages;
-    const numberofsuspects = req.body.numberofsuspects;
-    const users = await scraper.collectReviewsFromMuplitplePages(service.tryParseNumericValuewWithDefault(numberofpages,5))
-    const suspectusers = service.getTopNSuspectUsers(users,service.tryParseNumericValuewWithDefault(numberofsuspects,3))
+    const numberofpages = service.tryParseNumericValuewWithDefault(req.body.numberofpages,5);
+    const numberofsuspects = service.tryParseNumericValuewWithDefault(req.body.numberofsuspects,3);
+    const users = await scraper.collectReviewsFromMuplitplePages(numberofpages)
+    const suspectusers = service.getTopNSuspectUsers(users,numberofsuspects)
     res.status(200).json(suspectusers);
 });
 
