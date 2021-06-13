@@ -9,11 +9,16 @@
   <body>
     <div class="container">
         <br>
+        <div class="alert alert-danger" role="alert" style="text-align: center;">
+            PEDESTAL (for "McKaig Chevrolet Buick" dealership only)
+        </div>
+        
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="numberofpages" placeholder="Review Pages (default: 5)" >
-            <input type="text" class="form-control" id="numberofsuspects" placeholder="Top suspects (default: 3)" >
+            <input type="number" class="form-control" id="numberofpages" placeholder="Review Pages (default: 5)" >
+            <input type="number" class="form-control" id="numberofsuspects" placeholder="Top suspects (default: 3)" >
             <button class="btn btn-secondary" id="submit">Search</button>
         </div>
+
         <div id="output"></div>
     </div>
 
@@ -39,8 +44,12 @@
             $.post(
               "/api/gettop",
               { numberofpages: numberofpages, numberofsuspects: numberofsuspects },
-              function (data) {
-                    var html = ejs.render(`
+              function (data) {}
+            )
+            .success(function(data) { var html = ejs.render(`
+                    <div class="alert alert-warning" role="alert">
+                        Serach results for top <%= users.length %> offender(s) from dealerrater.com. Only <%= pages %> review page(s) are used, specifically for "McKaig Chevrolet Buick" dealership.
+                    </div>
                     <% for(let i = 0; i < users.length; i++) { %>
                         <div class="card text-center">
                             <div class="card-header">
@@ -56,12 +65,19 @@
                             </div>
                         </div> <br>
                     <% } %>
-                `, {users: data});
+                `, {users: data, pages:numberofpages});
 
                 $('#output').html(html);
                 toggleSpinner();
-              }
-            );
+               })
+            .error(function(data) { var html = ejs.render(`
+                    <div class="alert alert-warning" role="alert">
+                        Something went wrong please try again
+                    </div>
+                `, {});
+
+                $('#output').html(html);
+                toggleSpinner(); });;
           });
         });
     </script>
