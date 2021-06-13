@@ -1045,8 +1045,8 @@ const getTopNSuspectUsers = (users,topValue)=>{
     return result.slice(0, topValue);
 }
 
-const r = getTopNSuspectUsers(fakedada,3);
-console.log(r);
+//const r = getTopNSuspectUsers(fakedada,3);
+//console.log(r);
 
 // these functions are exported for testing and for using externaly
 module.exports = {

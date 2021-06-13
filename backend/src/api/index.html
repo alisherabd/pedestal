@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>User Login</title>
+  </head>
+  <body>
+    Number of pages:
+    <input type="text" id="numberofpages" value="10"/><br />
+    Number of suspects:
+    <input type="text" id="numberofsuspects"  value="3"/><br />
+
+    <input type="button" value="Submit" id="submit" />
+  </body>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <script>
+    jQuery(document).ready(function ($) {
+      $("#submit").click(function () {
+        let numberofpages = $("#numberofpages").val();
+        let numberofsuspects = $("#numberofsuspects").val();
+
+        $.post(
+          "/gettop",
+          { numberofpages: numberofpages, numberofsuspects: numberofsuspects },
+          function (data) {
+            console.log(data)
+          }
+        );
+      });
+    });
+  </script>
+</html>
