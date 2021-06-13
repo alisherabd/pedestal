@@ -150,6 +150,62 @@ describe("excludeFromArrayByCriteria function", () => {
 });
 
 
+describe("tryParseNumericValuewWithDefault function", () => {
+	it("should be number if numeric string", async () => {
+		const mockData = "5"
+		const result = service.tryParseNumericValuewWithDefault(mockData);
+		expect(result).equal(5);
+	}) 
+	it("should be 0 if non-numeric string", async () => {
+		const mockData = "5sdf"
+		const result = service.tryParseNumericValuewWithDefault(mockData);
+		expect(result).equal(0);
+	}) 
+	it("should be 0 if undefined", async () => {
+		const mockData = undefined
+		const result = service.tryParseNumericValuewWithDefault(mockData);
+		expect(result).equal(0);
+	})
+
+	it("should be 0 if null", async () => {
+		const mockData = null
+		const result = service.tryParseNumericValuewWithDefault(mockData);
+		expect(result).equal(0);
+	})
+	it("should be 0 if unassigned", async () => {
+		let mockData;
+		const result = service.tryParseNumericValuewWithDefault(mockData);
+		expect(result).equal(0);
+	})
+
+	it("should be 0 if {}", async () => {
+		let mockData={};
+		const result = service.tryParseNumericValuewWithDefault(mockData);
+		expect(result).equal(0);
+	})
+	it("should be 0 if []", async () => {
+		let mockData=[];
+		const result = service.tryParseNumericValuewWithDefault(mockData);
+		expect(result).equal(0);
+	})
+
+	it("should be 0 if true", async () => {
+		let mockData=true;
+		const result = service.tryParseNumericValuewWithDefault(mockData);
+		expect(result).equal(0);
+	})
+
+	it("should be default if non-numeric string", async () => {
+		const mockData = "5sdf"
+		const result = service.tryParseNumericValuewWithDefault(mockData,11);
+		expect(result).equal(11);
+	})
+
+	
+})
+
+
+
 describe("distinctifyArrayByCriteria function", () => {
 	it("should exclude dublicate usernames", async () => {
 		const mockData = [{username:"A",rating:5,val1:"sda"},{username:"A",rating:2,val2:"sdfg"},{username:"B",rating:10},{username:"C",rating:10}]

@@ -110,6 +110,17 @@ const getTopNSuspectUsers = (users,topValue)=>{
     }
     return result.slice(0, topValue);
 }
+const tryParseNumericValuewWithDefault = (str, defaultValue=0)=>{
+    let retValue = defaultValue;
+    if(str && str !== null) {
+        if(str.length > 0) {
+            if (!isNaN(str)) {
+                retValue = parseInt(str);
+            }
+        }
+    }
+    return retValue;
+}
 
 //const r = getTopNSuspectUsers(fakedada,3);
 //console.log(r);
@@ -120,5 +131,6 @@ module.exports = {
     getGroupByCriteriaRecords:getGroupByCriteriaRecords,
     excludeFromArrayByCriteria:excludeFromArrayByCriteria,
     distinctifyArrayByCriteria:distinctifyArrayByCriteria,
-    getTopNSuspectUsers:getTopNSuspectUsers
+    getTopNSuspectUsers:getTopNSuspectUsers,
+    tryParseNumericValuewWithDefault:tryParseNumericValuewWithDefault
 };
