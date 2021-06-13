@@ -151,5 +151,6 @@ const collectReviewsFromMuplitplePages = async (numberOfPages) => {
 // these functions are exported for testing
 module.exports = {
     fethHtml:fethHtml,
-    extractRatingNumber:extractRatingNumber
+    extractRatingNumber:extractRatingNumber,
+    collectReviewsFromMuplitplePages:collectReviewsFromMuplitplePages
 };
