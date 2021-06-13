@@ -4,7 +4,8 @@
   "description": "A Dealer For the People",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "npm test && node src/api/index.js"
   },
   "author": "Alisher",
   "license": "ISC",

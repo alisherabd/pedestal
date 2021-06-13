@@ -15,6 +15,16 @@ services:
         networks:
             mynet:
                 ipv4_address: 172.28.1.4
+    backend:
+        build:
+            context: ./backend
+            dockerfile: backend.dockerfile
+        ports: 
+            - 1000:1000            #allow  localhost to connect this container via this port
+        restart: always
+        networks:
+            mynet:
+                ipv4_address: 172.28.1.5
 volumes:
     redis.conf:
     redis-data:
