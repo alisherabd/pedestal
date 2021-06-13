@@ -13,8 +13,8 @@ RUN npm install --silent
 # add app
 COPY . ./
 
-# Expose port 1000 for accessing  the app
-EXPOSE 1000
+# Expose port for accessing  the app
+EXPOSE 3000
 
 # start api
 CMD ["npm", "start"]

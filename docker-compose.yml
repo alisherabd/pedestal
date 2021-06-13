@@ -20,7 +20,7 @@ services:
             context: ./backend
             dockerfile: backend.dockerfile
         ports: 
-            - 1000:1000            #allow  localhost to connect this container via this port
+            - 3000:3000            #allow  localhost to connect this container via this port
         restart: always
         networks:
             mynet:

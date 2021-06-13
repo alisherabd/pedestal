@@ -28,14 +28,28 @@ clone this repo
 > Locally
 1. run ``` npm install ```
 2. run ``` npm start ```
-3. It will test all suites, build and run the api service. After built, it will keep listening to port 1000. You can access http://localhost:1000 and will see the results after clicking "Search" button.
+3. It will test all suites, build and run the api service. After built, it will keep listening to port 3000. You can access http://localhost:3000 and will see the results after clicking "Search" button.
 
 > Docker
 1. run either ``` docker-compose up --build ``` or ``` docker-compose up --build -d ```
-2. It will test all suites, build and run the api service. After built, it will keep listening to port 1000. You can access http://localhost:1000 and will see the results after clicking "Search" button.
+2. It will test all suites, build and run the api service. After built, it will keep listening to port 3000. You can access http://localhost:3000 and will see the results after clicking "Search" button.
 
 
 
 ## Developer Notes
-to clear terminal completely on Mac
->  clear && printf '\e[3J'
+> To clear terminal completely on Mac
+```sh
+clear && printf '\e[3J'
+```
+
+
+> Heroku container push and release scripts
+```sh
+docker-compose up --build
+
+docker image rm registry.heroku.com/dealership-pedestal/web --force
+docker tag pedestal_backend registry.heroku.com/dealership-pedestal/web
+docker push registry.heroku.com/dealership-pedestal/web
+heroku container:release web --app dealership-pedestal
+heroku logs --tail --app dealership-pedestal
+```
